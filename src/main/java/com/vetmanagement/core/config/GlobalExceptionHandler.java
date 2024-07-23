@@ -1,9 +1,10 @@
 package com.vetmanagement.core.config;
 
-import dev.patika.ecommerce.core.exception.NotFoundException;
-import dev.patika.ecommerce.core.result.Result;
-import dev.patika.ecommerce.core.result.ResultData;
-import dev.patika.ecommerce.core.utilies.ResultHelper;
+
+import com.vetmanagement.core.exception.NotFoundException;
+import com.vetmanagement.core.result.Result;
+import com.vetmanagement.core.result.ResultData;
+import com.vetmanagement.core.utilies.ResultHelper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

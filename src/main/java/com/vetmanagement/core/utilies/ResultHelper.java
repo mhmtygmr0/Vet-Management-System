@@ -1,12 +1,8 @@
 package com.vetmanagement.core.utilies;
 
-import dev.patika.ecommerce.core.result.Result;
-import dev.patika.ecommerce.core.result.ResultData;
-import dev.patika.ecommerce.dto.response.CategoryResponse;
-import dev.patika.ecommerce.dto.response.CursorResponse;
-import org.springframework.data.domain.Page;
 
-import java.util.List;
+import com.vetmanagement.core.result.Result;
+import com.vetmanagement.core.result.ResultData;
 
 public class ResultHelper {
 
@@ -30,14 +26,4 @@ public class ResultHelper {
         return new Result(false, msg, "404");
     }
 
-    public static <T> ResultData<CursorResponse<T>> cursor(Page<T> pageData) {
-        CursorResponse<CategoryResponse> cursor = new CursorResponse<>();
-        cursor.setItems((List<CategoryResponse>) pageData.getContent());
-        cursor.setPageNumber(pageData.getNumber());
-        cursor.setPageSize(pageData.getSize());
-        cursor.setTotalElements(pageData.getTotalElements());
-
-        return ResultHelper.success((CursorResponse<T>) cursor);
-
-    }
 }
