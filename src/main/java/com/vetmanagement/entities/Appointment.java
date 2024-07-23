@@ -20,4 +20,12 @@ public class Appointment {
     @NotNull(message = "Please do not leave the appointmentDate field empty !!!")
     @Column(name = "appointment_date", nullable = false)
     private LocalDate appointmentDate;
+
+    @ManyToOne
+    @JoinColumn(name = "appointment_animal_id", referencedColumnName = "animal_id")
+    private Animal animal;
+
+    @ManyToOne
+    @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "doctor_id")
+    private Doctor doctor;
 }

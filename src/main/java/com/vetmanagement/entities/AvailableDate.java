@@ -20,4 +20,8 @@ public class AvailableDate {
     @NotNull(message = "Please do not leave the availableDate field empty !!!")
     @Column(name = "available_date", nullable = false)
     private LocalDate availableDate;
+
+    @ManyToOne
+    @JoinColumn(name = "available_doctor_id", referencedColumnName = "doctor_id")
+    private Doctor doctor;
 }
