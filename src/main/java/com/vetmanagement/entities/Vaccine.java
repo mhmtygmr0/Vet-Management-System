@@ -1,5 +1,6 @@
 package com.vetmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class Vaccine {
     private String name;
 
     @NotNull(message = "Please do not leave the code field empty !!!")
-    @Column(name = "vaccine_code", nullable = false)
+    @Column(name = "vaccine_code", unique = true, nullable = false)
     private String code;
 
     @NotNull(message = "Please do not leave the protectionStartDate field empty !!!")
@@ -38,6 +39,7 @@ public class Vaccine {
     private LocalDate protectionFinishDate;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "vaccine_animal_id", referencedColumnName = "animal_id")
     private Animal animal;
 }

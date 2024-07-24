@@ -1,5 +1,6 @@
 package com.vetmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -38,9 +39,11 @@ public class Doctor {
     @Column(name = "doctor_city")
     private String city;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "doctor")
     private List<AvailableDate> availableDates;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments;
 }

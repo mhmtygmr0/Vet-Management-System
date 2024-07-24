@@ -1,5 +1,6 @@
 package com.vetmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class AvailableDate {
     @Column(name = "available_date", nullable = false)
     private LocalDate availableDate;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "available_doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;

@@ -1,6 +1,7 @@
 package com.vetmanagement.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -57,9 +58,11 @@ public class Animal {
     @JoinColumn(name = "animal_customer_id", referencedColumnName = "customer_id")
     private Customer customer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "animal")
     private List<Vaccine> vaccines;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "animal")
     private List<Appointment> appointments;
 }

@@ -1,5 +1,6 @@
 package com.vetmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,12 @@ public class Appointment {
     @Column(name = "appointment_date", nullable = false)
     private LocalDate appointmentDate;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "appointment_animal_id", referencedColumnName = "animal_id")
     private Animal animal;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
