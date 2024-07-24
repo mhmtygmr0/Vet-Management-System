@@ -30,6 +30,5 @@ public class VaccineUpdateRequest {
     @NotNull(message = "Please do not leave the protectionFinishDate field empty !!!")
     private LocalDate protectionFinishDate;
 
-    @Positive
     private int animalId;
 }
