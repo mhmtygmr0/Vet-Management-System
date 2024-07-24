@@ -1,4 +1,4 @@
-package com.vetmanagement.dto.request;
+package com.vetmanagement.dto.request.animal;
 
 import com.vetmanagement.entities.Animal;
 import jakarta.validation.constraints.NotEmpty;
