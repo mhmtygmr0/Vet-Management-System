@@ -41,6 +41,5 @@ public class AnimalUpdateRequest {
 
     @Positive
     @NotNull(message = "Please do not leave the customer field empty !!!")
-    @NotEmpty
     private int customerId;
 }
