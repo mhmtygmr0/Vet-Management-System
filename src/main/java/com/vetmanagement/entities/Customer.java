@@ -10,8 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customers")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
@@ -41,16 +40,4 @@ public class Customer {
     @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<Animal> animals;
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                ", mail='" + mail + '\'' +
-                ", phone='" + phone + '\'' +
-                ", name='" + name + '\'' +
-                ", id=" + id +
-                '}';
-    }
 }
