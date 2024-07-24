@@ -1,17 +1,17 @@
 package com.vetmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "customers")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
@@ -38,6 +38,19 @@ public class Customer {
     @Column(name = "customer_city")
     private String city;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<Animal> animals;
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

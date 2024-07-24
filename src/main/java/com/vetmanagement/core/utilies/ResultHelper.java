@@ -3,6 +3,11 @@ package com.vetmanagement.core.utilies;
 
 import com.vetmanagement.core.result.Result;
 import com.vetmanagement.core.result.ResultData;
+import com.vetmanagement.dto.response.AnimalResponse;
+import com.vetmanagement.dto.response.CursorResponse;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class ResultHelper {
 
@@ -26,4 +31,14 @@ public class ResultHelper {
         return new Result(false, msg, "404");
     }
 
+    public static <T> ResultData<CursorResponse<T>> cursor(Page<T> pageData) {
+        CursorResponse<AnimalResponse> cursor = new CursorResponse<>();
+        cursor.setItems((List<AnimalResponse>) pageData.getContent());
+        cursor.setPageNumber(pageData.getNumber());
+        cursor.setPageSize(pageData.getSize());
+        cursor.setTotalElements(pageData.getTotalElements());
+
+        return ResultHelper.success((CursorResponse<T>) cursor);
+
+    }
 }
