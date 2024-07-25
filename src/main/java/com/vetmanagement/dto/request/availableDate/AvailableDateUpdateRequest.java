@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvailableDateUpdateRequest {
-    private int id;
+    private Long id;
     private LocalDate availableDate;
-    private int doctorId;
+    private Long doctorId;
 }

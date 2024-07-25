@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class VaccineUpdateRequest {
     @Positive
-    private int id;
+    private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
     @NotEmpty
@@ -30,5 +30,5 @@ public class VaccineUpdateRequest {
     @NotNull(message = "Please do not leave the protectionFinishDate field empty !!!")
     private LocalDate protectionFinishDate;
 
-    private int animalId;
+    private Long animalId;
 }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentResponse {
-    private int id;
+    private Long id;
     private LocalDate appointmentDate;
     private String animalName;
     private String doctorName;

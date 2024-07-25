@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerUpdateRequest {
-    private int id;
+    private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
     private String name;

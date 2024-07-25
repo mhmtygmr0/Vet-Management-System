@@ -28,7 +28,7 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<CustomerResponse> get(@PathVariable("id") int id) {
+    public ResultData<CustomerResponse> get(@PathVariable("id") Long id) {
         Customer customer = this.customerService.get(id);
         return ResultHelper.success(this.modelMapper.forResponse().map(customer, CustomerResponse.class));
     }
@@ -62,7 +62,7 @@ public class CustomerController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.customerService.delete(id);
         return ResultHelper.ok();
     }

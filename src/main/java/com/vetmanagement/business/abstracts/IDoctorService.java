@@ -4,7 +4,7 @@ import com.vetmanagement.entities.Doctor;
 import org.springframework.data.domain.Page;
 
 public interface IDoctorService {
-    Doctor get(int id);
+    Doctor get(Long id);
 
     Page<Doctor> cursor(int page, int pageSize);
 
@@ -12,5 +12,5 @@ public interface IDoctorService {
 
     Doctor update(Doctor doctor);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

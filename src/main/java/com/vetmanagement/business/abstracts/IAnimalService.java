@@ -4,7 +4,7 @@ import com.vetmanagement.entities.Animal;
 import org.springframework.data.domain.Page;
 
 public interface IAnimalService {
-    Animal get(int id);
+    Animal get(Long id);
 
     Page<Animal> cursor(int page, int pageSize);
 
@@ -12,5 +12,5 @@ public interface IAnimalService {
 
     Animal update(Animal animal);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

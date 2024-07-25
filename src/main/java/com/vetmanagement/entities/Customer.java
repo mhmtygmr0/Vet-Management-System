@@ -38,6 +38,6 @@ public class Customer {
     private String city;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animals;
 }

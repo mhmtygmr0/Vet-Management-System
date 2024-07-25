@@ -36,7 +36,7 @@ public class AppointmentController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<AppointmentResponse> get(@PathVariable("id") int id) {
+    public ResultData<AppointmentResponse> get(@PathVariable("id") Long id) {
         Appointment appointment = this.appointmentService.get(id);
         return ResultHelper.success(this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
     }
@@ -74,7 +74,7 @@ public class AppointmentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.appointmentService.delete(id);
         return ResultHelper.ok();
     }

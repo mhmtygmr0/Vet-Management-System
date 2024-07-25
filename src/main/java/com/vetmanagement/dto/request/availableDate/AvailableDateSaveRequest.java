@@ -11,5 +11,5 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AvailableDateSaveRequest {
     private LocalDate availableDate;
-    private int doctorId;
+    private Long doctorId;
 }

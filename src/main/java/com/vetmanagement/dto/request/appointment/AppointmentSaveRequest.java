@@ -11,6 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AppointmentSaveRequest {
     private LocalDate appointmentDate;
-    private int animalId;
-    private int doctorId;
+    private Long animalId;
+    private Long doctorId;
 }

@@ -40,10 +40,10 @@ public class Doctor {
     private String city;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AvailableDate> availableDates;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 }

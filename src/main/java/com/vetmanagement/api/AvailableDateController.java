@@ -31,7 +31,7 @@ public class AvailableDateController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<AvailableDateResponse> get(@PathVariable("id") int id) {
+    public ResultData<AvailableDateResponse> get(@PathVariable("id") Long id) {
         AvailableDate availableDate = this.availableDateService.get(id);
         return ResultHelper.success(this.modelMapper.forResponse().map(availableDate, AvailableDateResponse.class));
     }
@@ -66,7 +66,7 @@ public class AvailableDateController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.availableDateService.delete(id);
         return ResultHelper.ok();
     }

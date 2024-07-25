@@ -20,7 +20,7 @@ public class AnimalManager implements IAnimalService {
     }
 
     @Override
-    public Animal get(int id) {
+    public Animal get(Long id) {
         return this.animalRepo.findById(id).orElseThrow(() -> new NotFoundException(Msg.NOT_FOUND));
     }
 
@@ -41,7 +41,7 @@ public class AnimalManager implements IAnimalService {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         Animal animal = this.get(id);
         this.animalRepo.delete(animal);
         return true;

@@ -20,7 +20,7 @@ public class AppointmentManager implements IAppointmentService {
     }
 
     @Override
-    public Appointment get(int id) {
+    public Appointment get(Long id) {
         return this.appointmentRepo.findById(id).orElseThrow(() -> new NotFoundException(Msg.NOT_FOUND));
     }
 
@@ -41,7 +41,7 @@ public class AppointmentManager implements IAppointmentService {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         Appointment appointment = this.get(id);
         this.appointmentRepo.delete(appointment);
         return true;

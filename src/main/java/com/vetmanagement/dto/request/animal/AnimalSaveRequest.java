@@ -38,5 +38,5 @@ public class AnimalSaveRequest {
 
     @Positive
     @NotNull(message = "Please do not leave the customer field empty !!!")
-    private int customerId;
+    private Long customerId;
 }

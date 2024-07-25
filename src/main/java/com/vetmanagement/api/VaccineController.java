@@ -32,7 +32,7 @@ public class VaccineController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<VaccineResponse> get(@PathVariable("id") int id) {
+    public ResultData<VaccineResponse> get(@PathVariable("id") Long id) {
         Vaccine vaccine = this.vaccineService.get(id);
         return ResultHelper.success(this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
     }
@@ -69,7 +69,7 @@ public class VaccineController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.vaccineService.delete(id);
         return ResultHelper.ok();
     }

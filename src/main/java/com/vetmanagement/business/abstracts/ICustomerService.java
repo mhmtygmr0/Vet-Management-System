@@ -4,7 +4,7 @@ import com.vetmanagement.entities.Customer;
 import org.springframework.data.domain.Page;
 
 public interface ICustomerService {
-    Customer get(int id);
+    Customer get(Long id);
 
     Page<Customer> cursor(int page, int pageSize);
 
@@ -12,5 +12,5 @@ public interface ICustomerService {
 
     Customer update(Customer customer);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

@@ -4,7 +4,7 @@ import com.vetmanagement.entities.Vaccine;
 import org.springframework.data.domain.Page;
 
 public interface IVaccineService {
-    Vaccine get(int id);
+    Vaccine get(Long id);
 
     Page<Vaccine> cursor(int page, int pageSize);
 
@@ -12,5 +12,5 @@ public interface IVaccineService {
 
     Vaccine update(Vaccine vaccine);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

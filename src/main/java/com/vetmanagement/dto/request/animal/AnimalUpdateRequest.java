@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AnimalUpdateRequest {
     @Positive
-    private int id;
+    private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
     @NotEmpty
@@ -41,5 +41,5 @@ public class AnimalUpdateRequest {
 
     @Positive
     @NotNull(message = "Please do not leave the customer field empty !!!")
-    private int customerId;
+    private Long customerId;
 }

@@ -4,7 +4,7 @@ import com.vetmanagement.entities.Appointment;
 import org.springframework.data.domain.Page;
 
 public interface IAppointmentService {
-    Appointment get(int id);
+    Appointment get(Long id);
 
     Page<Appointment> cursor(int page, int pageSize);
 
@@ -12,5 +12,5 @@ public interface IAppointmentService {
 
     Appointment update(Appointment appointment);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

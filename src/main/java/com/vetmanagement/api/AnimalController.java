@@ -32,7 +32,7 @@ public class AnimalController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<AnimalResponse> get(@PathVariable("id") int id) {
+    public ResultData<AnimalResponse> get(@PathVariable("id") Long id) {
         Animal animal = this.animalService.get(id);
         return ResultHelper.success(this.modelMapper.forResponse().map(animal, AnimalResponse.class));
     }
@@ -69,7 +69,7 @@ public class AnimalController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.animalService.delete(id);
         return ResultHelper.ok();
     }

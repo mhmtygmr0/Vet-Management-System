@@ -59,10 +59,10 @@ public class Animal {
     private Customer customer;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vaccine> vaccines;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 }

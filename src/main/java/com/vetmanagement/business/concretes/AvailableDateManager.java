@@ -20,7 +20,7 @@ public class AvailableDateManager implements IAvailableDateService {
     }
 
     @Override
-    public AvailableDate get(int id) {
+    public AvailableDate get(Long id) {
         return this.availableDateRepo.findById(id).orElseThrow(() -> new NotFoundException(Msg.NOT_FOUND));
     }
 
@@ -41,7 +41,7 @@ public class AvailableDateManager implements IAvailableDateService {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         AvailableDate availableDate = this.get(id);
         this.availableDateRepo.delete(availableDate);
         return true;
