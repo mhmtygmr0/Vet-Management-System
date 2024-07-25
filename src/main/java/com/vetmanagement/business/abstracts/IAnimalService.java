@@ -13,4 +13,6 @@ public interface IAnimalService {
     Animal update(Animal animal);
 
     boolean delete(Long id);
+
+    Page<Animal> getAnimalsByCustomerId(Long customerId, int page, int pageSize);
 }

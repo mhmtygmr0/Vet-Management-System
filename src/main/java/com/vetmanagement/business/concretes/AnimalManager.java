@@ -46,4 +46,10 @@ public class AnimalManager implements IAnimalService {
         this.animalRepo.delete(animal);
         return true;
     }
+
+    @Override
+    public Page<Animal> getAnimalsByCustomerId(Long customerId, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return this.animalRepo.findByCustomerId(customerId, pageable);
+    }
 }
