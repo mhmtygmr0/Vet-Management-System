@@ -1,6 +1,5 @@
 package com.vetmanagement.dto.request.vaccine;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -13,15 +12,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VaccineUpdateRequest {
-    @Positive
+    @Positive(message = "Vaccine id must be positive.")
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
-    @NotEmpty
     private String name;
 
     @NotNull(message = "Please do not leave the code field empty !!!")
-    @NotEmpty
     private String code;
 
     @NotNull(message = "Please do not leave the protectionStartDate field empty !!!")
@@ -30,5 +27,6 @@ public class VaccineUpdateRequest {
     @NotNull(message = "Please do not leave the protectionFinishDate field empty !!!")
     private LocalDate protectionFinishDate;
 
+    @Positive(message = "Animal id must be positive.")
     private Long animalId;
 }

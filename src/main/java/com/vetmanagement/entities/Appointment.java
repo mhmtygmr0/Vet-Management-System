@@ -17,20 +17,20 @@ import java.time.LocalDateTime;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "appointment_id", unique = true, nullable = false)
+    @Column(name = "appointment_id", unique = true)
     private Long id;
 
     @NotNull(message = "Please do not leave the appointmentDate field empty !!!")
-    @Column(name = "appointment_date", nullable = false)
+    @Column(name = "appointment_date")
     private LocalDateTime appointmentDateTime;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_animal_id", referencedColumnName = "animal_id")
     private Animal animal;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
 }

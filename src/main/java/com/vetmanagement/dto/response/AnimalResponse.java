@@ -18,5 +18,5 @@ public class AnimalResponse {
     private Animal.Gender gender;
     private String colour;
     private LocalDate dateOfBirth;
-    private String customerName;
+    private Long customerId;
 }

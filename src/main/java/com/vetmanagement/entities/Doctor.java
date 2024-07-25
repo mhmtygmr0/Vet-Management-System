@@ -18,11 +18,11 @@ import java.util.List;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "doctor_id", unique = true, nullable = false)
+    @Column(name = "doctor_id", unique = true)
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
-    @Column(name = "doctor_name", nullable = false)
+    @Column(name = "doctor_name")
     private String name;
 
     @Column(name = "doctor_phone")
@@ -30,7 +30,7 @@ public class Doctor {
 
     @NotNull(message = "Please do not leave the email field empty !!!")
     @Email(message = "Please enter a valid email address !!!")
-    @Column(name = "doctor_mail", nullable = false, unique = true)
+    @Column(name = "doctor_mail", unique = true)
     private String mail;
 
     @Column(name = "doctor_address")
@@ -40,10 +40,10 @@ public class Doctor {
     private String city;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     private List<AvailableDate> availableDates;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
 }

@@ -16,11 +16,11 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id", unique = true, nullable = false)
+    @Column(name = "customer_id", unique = true)
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
-    @Column(name = "customer_name", nullable = false)
+    @Column(name = "customer_name")
     private String name;
 
     @Column(name = "customer_phone")
@@ -28,7 +28,7 @@ public class Customer {
 
     @NotNull(message = "Please do not leave the email field empty !!!")
     @Email(message = "Please enter a valid email address !!!")
-    @Column(name = "customer_mail", nullable = false, unique = true)
+    @Column(name = "customer_mail", unique = true)
     private String mail;
 
     @Column(name = "customer_address")
@@ -38,6 +38,6 @@ public class Customer {
     private String city;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Animal> animals;
 }

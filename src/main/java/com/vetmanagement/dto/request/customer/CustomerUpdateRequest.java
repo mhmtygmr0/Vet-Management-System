@@ -2,6 +2,7 @@ package com.vetmanagement.dto.request.customer;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerUpdateRequest {
+    @Positive(message = "Customer id must be positive.")
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")

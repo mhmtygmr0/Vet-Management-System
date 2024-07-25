@@ -17,29 +17,29 @@ import java.time.LocalDate;
 public class Vaccine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vaccine_id", unique = true, nullable = false)
+    @Column(name = "vaccine_id", unique = true)
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
-    @Column(name = "vaccine_name", nullable = false)
+    @Column(name = "vaccine_name")
     private String name;
 
     @NotNull(message = "Please do not leave the code field empty !!!")
-    @Column(name = "vaccine_code", unique = true, nullable = false)
+    @Column(name = "vaccine_code", unique = true)
     private String code;
 
     @NotNull(message = "Please do not leave the protectionStartDate field empty !!!")
     @Temporal(TemporalType.DATE)
-    @Column(name = "vaccine_protection_start_date", nullable = false)
+    @Column(name = "vaccine_protection_start_date")
     private LocalDate protectionStartDate;
 
     @NotNull(message = "Please do not leave the protectionFinishDate field empty !!!")
     @Temporal(TemporalType.DATE)
-    @Column(name = "vaccine_protection_finish_date", nullable = false)
+    @Column(name = "vaccine_protection_finish_date")
     private LocalDate protectionFinishDate;
 
-    @ManyToOne
     @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vaccine_animal_id", referencedColumnName = "animal_id")
     private Animal animal;
 }

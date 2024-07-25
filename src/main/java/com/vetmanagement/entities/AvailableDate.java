@@ -17,16 +17,16 @@ import java.time.LocalDate;
 public class AvailableDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "available_dates_id", unique = true, nullable = false)
+    @Column(name = "available_date_id", unique = true)
     private Long id;
 
     @NotNull(message = "Please do not leave the availableDate field empty !!!")
-    @Column(name = "available_date", nullable = false)
+    @Column(name = "available_date")
     @Temporal(TemporalType.DATE)
     private LocalDate availableDate;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "available_doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
 }

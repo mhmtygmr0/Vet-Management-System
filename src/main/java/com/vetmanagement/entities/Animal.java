@@ -19,33 +19,33 @@ import java.util.List;
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "animal_id", unique = true, nullable = false)
+    @Column(name = "animal_id", unique = true)
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
-    @Column(name = "animal_name", nullable = false)
+    @Column(name = "animal_name")
     private String name;
 
     @NotNull(message = "Please do not leave the species field empty !!!")
-    @Column(name = "animal_species", nullable = false)
+    @Column(name = "animal_species")
     private String species;
 
     @NotNull(message = "Please do not leave the breed field empty !!!")
-    @Column(name = "animal_breed", nullable = false)
+    @Column(name = "animal_breed")
     private String breed;
 
     @NotNull(message = "Please do not leave the gender field empty !!!")
     @Enumerated(EnumType.STRING)
-    @Column(name = "animal_gender", nullable = false)
+    @Column(name = "animal_gender")
     private Gender gender;
 
     @NotNull(message = "Please do not leave the colour field empty !!!")
-    @Column(name = "animal_colour", nullable = false)
+    @Column(name = "animal_colour")
     private String colour;
 
     @NotNull(message = "Please do not leave the dateOfBirth field empty !!!")
     @Temporal(TemporalType.DATE)
-    @Column(name = "animal_date_of_birth", nullable = false)
+    @Column(name = "animal_date_of_birth")
     private LocalDate dateOfBirth;
 
     public enum Gender {
@@ -53,16 +53,16 @@ public class Animal {
         FEMALE
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "animal_customer_id", referencedColumnName = "customer_id")
     private Customer customer;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.REMOVE)
     private List<Vaccine> vaccines;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
 }

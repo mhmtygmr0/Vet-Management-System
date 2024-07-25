@@ -14,32 +14,28 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalUpdateRequest {
-    @Positive
+    @Positive(message = "Animal id must be positive.")
     private Long id;
 
     @NotNull(message = "Please do not leave the name field empty !!!")
-    @NotEmpty
     private String name;
 
     @NotNull(message = "Please do not leave the species field empty !!!")
-    @NotEmpty
     private String species;
 
     @NotNull(message = "Please do not leave the breed field empty !!!")
-    @NotEmpty
     private String breed;
 
     @NotNull(message = "Please do not leave the gender field empty !!!")
     private Animal.Gender gender;
 
     @NotNull(message = "Please do not leave the colour field empty !!!")
-    @NotEmpty
     private String colour;
 
     @NotNull(message = "Please do not leave the dateOfBirth field empty !!!")
     private LocalDate dateOfBirth;
 
-    @Positive
     @NotNull(message = "Please do not leave the customer field empty !!!")
+    @Positive(message = "Customer id must be positive.")
     private Long customerId;
 }
