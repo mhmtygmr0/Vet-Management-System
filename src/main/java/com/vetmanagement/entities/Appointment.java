@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -22,8 +22,7 @@ public class Appointment {
 
     @NotNull(message = "Please do not leave the appointmentDate field empty !!!")
     @Column(name = "appointment_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private LocalDate appointmentDate;
+    private LocalDateTime appointmentDateTime;
 
     @JsonBackReference
     @ManyToOne
