@@ -67,4 +67,16 @@ public class CustomerController {
         return ResultHelper.ok();
     }
 
+    @GetMapping("/name/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultData<CursorResponse<CustomerResponse>> getCustomersByCustomerName(
+            @PathVariable("name") String name,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
+    ) {
+        Page<Customer> customerPage = this.customerService.getCustomerByCustomerName(name, page, pageSize);
+        Page<CustomerResponse> customerResponsePage = customerPage.map(customer -> this.modelMapper.forResponse().map(customer, CustomerResponse.class));
+        return ResultHelper.cursor(customerResponsePage);
+    }
+
 }

@@ -46,4 +46,10 @@ public class CustomerManager implements ICustomerService {
         this.customerRepo.delete(customer);
         return true;
     }
+
+    @Override
+    public Page<Customer> getCustomerByCustomerName(String name, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return this.customerRepo.findByName(name, pageable);
+    }
 }

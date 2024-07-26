@@ -13,4 +13,6 @@ public interface ICustomerService {
     Customer update(Customer customer);
 
     boolean delete(Long id);
+
+    Page<Customer> getCustomerByCustomerName(String name, int page, int pageSize);
 }
