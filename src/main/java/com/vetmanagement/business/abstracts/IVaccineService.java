@@ -13,4 +13,6 @@ public interface IVaccineService {
     Vaccine update(Vaccine vaccine);
 
     boolean delete(Long id);
+
+    Page<Vaccine> getVaccinesByAnimalId(Long animalId, int page, int pageSize);
 }

@@ -74,4 +74,16 @@ public class VaccineController {
         return ResultHelper.ok();
     }
 
+    @GetMapping("/animal/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultData<CursorResponse<VaccineResponse>> getVaccinesByAnimalId(
+            @PathVariable(name = "id") Long animalId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+    ) {
+        Page<Vaccine> vaccinePage = this.vaccineService.getVaccinesByAnimalId(animalId, page, pageSize);
+        Page<VaccineResponse> vaccineResponsePage = vaccinePage.map(vaccine -> this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
+        return ResultHelper.cursor(vaccineResponsePage);
+    }
+
 }
