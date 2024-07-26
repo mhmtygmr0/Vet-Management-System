@@ -52,4 +52,10 @@ public class AnimalManager implements IAnimalService {
         Pageable pageable = PageRequest.of(page, pageSize);
         return this.animalRepo.findByCustomerId(customerId, pageable);
     }
+
+    @Override
+    public Page<Animal> getAnimalByAnimalName(String name, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return this.animalRepo.findByName(name, pageable);
+    }
 }

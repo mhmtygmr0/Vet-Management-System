@@ -86,4 +86,16 @@ public class AnimalController {
         return ResultHelper.cursor(animalResponsePage);
     }
 
+    @GetMapping("/name/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultData<CursorResponse<AnimalResponse>> getAnimalsByAnimalName(
+            @PathVariable(name = "name") String name,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+    ) {
+        Page<Animal> animalPage = animalService.getAnimalByAnimalName(name, page, pageSize);
+        Page<AnimalResponse> animalResponsePage = animalPage.map(animal -> modelMapper.forResponse().map(animal, AnimalResponse.class));
+        return ResultHelper.cursor(animalResponsePage);
+    }
+
 }
