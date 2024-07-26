@@ -1,5 +1,8 @@
 package com.vetmanagement.business.abstracts;
 
+import com.vetmanagement.core.result.ResultData;
+import com.vetmanagement.dto.request.animal.AnimalSaveRequest;
+import com.vetmanagement.dto.response.AnimalResponse;
 import com.vetmanagement.entities.Animal;
 import org.springframework.data.domain.Page;
 
@@ -8,7 +11,7 @@ public interface IAnimalService {
 
     Page<Animal> cursor(int page, int pageSize);
 
-    Animal save(Animal animal);
+    ResultData<AnimalResponse> save(AnimalSaveRequest animalSaveRequest);
 
     Animal update(Animal animal);
 

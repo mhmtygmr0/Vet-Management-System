@@ -51,11 +51,7 @@ public class VaccineController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<VaccineResponse> save(@Valid @RequestBody VaccineSaveRequest vaccineSaveRequest) {
-        Vaccine saveVaccine = this.modelMapper.forRequest().map(vaccineSaveRequest, Vaccine.class);
-        Animal animal = this.animalService.get(vaccineSaveRequest.getAnimalId());
-        saveVaccine.setAnimal(animal);
-        this.vaccineService.save(saveVaccine);
-        return ResultHelper.created(this.modelMapper.forResponse().map(saveVaccine, VaccineResponse.class));
+        return this.vaccineService.save(vaccineSaveRequest);
     }
 
     @PutMapping()

@@ -1,8 +1,6 @@
 package com.vetmanagement.api;
 
-import com.vetmanagement.business.abstracts.IAnimalService;
 import com.vetmanagement.business.abstracts.IAppointmentService;
-import com.vetmanagement.business.abstracts.IDoctorService;
 import com.vetmanagement.core.config.modelMapper.IModelMapperService;
 import com.vetmanagement.core.result.Result;
 import com.vetmanagement.core.result.ResultData;
@@ -11,9 +9,7 @@ import com.vetmanagement.dto.request.appointment.AppointmentSaveRequest;
 import com.vetmanagement.dto.request.appointment.AppointmentUpdateRequest;
 import com.vetmanagement.dto.response.AppointmentResponse;
 import com.vetmanagement.dto.response.CursorResponse;
-import com.vetmanagement.entities.Animal;
 import com.vetmanagement.entities.Appointment;
-import com.vetmanagement.entities.Doctor;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -22,15 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/appointments")
 public class AppointmentController {
-    private final IAnimalService animalService;
     private final IAppointmentService appointmentService;
-    private final IDoctorService doctorService;
     private final IModelMapperService modelMapper;
 
-    public AppointmentController(IAnimalService animalService, IAppointmentService appointmentService, IDoctorService doctorService, IModelMapperService modelMapper) {
-        this.animalService = animalService;
+    public AppointmentController(IAppointmentService appointmentService, IModelMapperService modelMapper) {
         this.appointmentService = appointmentService;
-        this.doctorService = doctorService;
         this.modelMapper = modelMapper;
     }
 
@@ -55,14 +47,7 @@ public class AppointmentController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<AppointmentResponse> save(@Valid @RequestBody AppointmentSaveRequest appointmentSaveRequest) {
-        Appointment saveAppointment = this.modelMapper.forRequest().map(appointmentSaveRequest, Appointment.class);
-        saveAppointment.setId(null); // id alanını sıfırlayarak yeni bir nesne oluşturduğumuzdan emin oluyoruz
-        Animal animal = this.animalService.get(appointmentSaveRequest.getAnimalId());
-        saveAppointment.setAnimal(animal);
-        Doctor doctor = this.doctorService.get(appointmentSaveRequest.getDoctorId());
-        saveAppointment.setDoctor(doctor);
-        this.appointmentService.save(saveAppointment);
-        return ResultHelper.created(this.modelMapper.forResponse().map(saveAppointment, AppointmentResponse.class));
+        return this.appointmentService.save(appointmentSaveRequest);
     }
 
     @PutMapping()

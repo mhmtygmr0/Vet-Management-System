@@ -11,7 +11,6 @@ import com.vetmanagement.dto.request.animal.AnimalUpdateRequest;
 import com.vetmanagement.dto.response.AnimalResponse;
 import com.vetmanagement.dto.response.CursorResponse;
 import com.vetmanagement.entities.Animal;
-import com.vetmanagement.entities.Customer;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -51,11 +50,7 @@ public class AnimalController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<AnimalResponse> save(@Valid @RequestBody AnimalSaveRequest animalSaveRequest) {
-        Animal saveAnimal = this.modelMapper.forRequest().map(animalSaveRequest, Animal.class);
-        Customer customer = this.customerService.get(animalSaveRequest.getCustomerId());
-        saveAnimal.setCustomer(customer);
-        this.animalService.save(saveAnimal);
-        return ResultHelper.created(this.modelMapper.forResponse().map(saveAnimal, AnimalResponse.class));
+        return this.animalService.save(animalSaveRequest);
     }
 
     @PutMapping()

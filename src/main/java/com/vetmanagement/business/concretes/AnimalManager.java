@@ -2,8 +2,13 @@ package com.vetmanagement.business.concretes;
 
 import com.vetmanagement.business.abstracts.IAnimalService;
 import com.vetmanagement.core.exception.NotFoundException;
+import com.vetmanagement.core.result.ResultData;
 import com.vetmanagement.core.utilies.Msg;
+import com.vetmanagement.core.utilies.ResultHelper;
 import com.vetmanagement.dao.AnimalRepo;
+import com.vetmanagement.dto.converter.AnimalConverter;
+import com.vetmanagement.dto.request.animal.AnimalSaveRequest;
+import com.vetmanagement.dto.response.AnimalResponse;
 import com.vetmanagement.entities.Animal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,9 +19,13 @@ import org.springframework.stereotype.Service;
 public class AnimalManager implements IAnimalService {
 
     private final AnimalRepo animalRepo;
+    private final CustomerManager customerManager;
+    private final AnimalConverter converter;
 
-    public AnimalManager(AnimalRepo animalRepo) {
+    public AnimalManager(AnimalRepo animalRepo, CustomerManager customerManager, AnimalConverter animalConverter) {
         this.animalRepo = animalRepo;
+        this.customerManager = customerManager;
+        this.converter = animalConverter;
     }
 
     @Override
@@ -31,8 +40,11 @@ public class AnimalManager implements IAnimalService {
     }
 
     @Override
-    public Animal save(Animal animal) {
-        return this.animalRepo.save(animal);
+    public ResultData<AnimalResponse> save(AnimalSaveRequest animalSaveRequest) {
+        this.customerManager.get(animalSaveRequest.getCustomerId());
+        Animal saveAnimal = this.converter.convertToAnimal(animalSaveRequest);
+        this.animalRepo.save(saveAnimal);
+        return ResultHelper.created(this.converter.toAnimalResponse(saveAnimal));
     }
 
     @Override

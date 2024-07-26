@@ -50,11 +50,7 @@ public class AvailableDateController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<AvailableDateResponse> save(@Valid @RequestBody AvailableDateSaveRequest availableDateSaveRequest) {
-        AvailableDate saveAvailableDate = this.modelMapper.forRequest().map(availableDateSaveRequest, AvailableDate.class);
-        Doctor doctor = this.doctorService.get(availableDateSaveRequest.getDoctorId());
-        saveAvailableDate.setDoctor(doctor);
-        this.availableDateService.save(saveAvailableDate);
-        return ResultHelper.created(this.modelMapper.forResponse().map(saveAvailableDate, AvailableDateResponse.class));
+        return this.availableDateService.save(availableDateSaveRequest);
     }
 
     @PutMapping()

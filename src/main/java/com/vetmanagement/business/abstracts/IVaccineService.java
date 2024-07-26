@@ -1,5 +1,8 @@
 package com.vetmanagement.business.abstracts;
 
+import com.vetmanagement.core.result.ResultData;
+import com.vetmanagement.dto.request.vaccine.VaccineSaveRequest;
+import com.vetmanagement.dto.response.VaccineResponse;
 import com.vetmanagement.entities.Vaccine;
 import org.springframework.data.domain.Page;
 
@@ -8,7 +11,7 @@ public interface IVaccineService {
 
     Page<Vaccine> cursor(int page, int pageSize);
 
-    Vaccine save(Vaccine vaccine);
+    ResultData<VaccineResponse> save(VaccineSaveRequest vaccineSaveRequest);
 
     Vaccine update(Vaccine vaccine);
 

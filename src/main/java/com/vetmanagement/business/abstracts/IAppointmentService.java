@@ -1,5 +1,8 @@
 package com.vetmanagement.business.abstracts;
 
+import com.vetmanagement.core.result.ResultData;
+import com.vetmanagement.dto.request.appointment.AppointmentSaveRequest;
+import com.vetmanagement.dto.response.AppointmentResponse;
 import com.vetmanagement.entities.Appointment;
 import org.springframework.data.domain.Page;
 
@@ -8,7 +11,8 @@ public interface IAppointmentService {
 
     Page<Appointment> cursor(int page, int pageSize);
 
-    Appointment save(Appointment appointment);
+    ResultData<AppointmentResponse> save(AppointmentSaveRequest appointmentSaveRequest);
+
 
     Appointment update(Appointment appointment);
 
