@@ -12,12 +12,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvailableDateUpdateRequest {
+    @NotNull(message = "Please do not leave the id field empty !!!")
     @Positive(message = "AvailableDate id must be positive.")
     private Long id;
 
     @NotNull(message = "Please do not leave the availableDate field empty !!!")
     private LocalDate availableDate;
 
+    @NotNull(message = "Please do not leave the doctorID field empty !!!")
     @Positive(message = "Doctor id must be positive.")
     private Long doctorId;
 }

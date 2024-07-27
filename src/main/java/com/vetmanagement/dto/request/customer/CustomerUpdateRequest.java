@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerUpdateRequest {
+    @NotNull(message = "Please do not leave the id field empty !!!")
     @Positive(message = "Customer id must be positive.")
     private Long id;
 

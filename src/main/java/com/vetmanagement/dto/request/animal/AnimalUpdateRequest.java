@@ -1,7 +1,6 @@
 package com.vetmanagement.dto.request.animal;
 
 import com.vetmanagement.entities.Animal;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -14,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalUpdateRequest {
+    @NotNull(message = "Please do not leave the id field empty !!!")
     @Positive(message = "Animal id must be positive.")
     private Long id;
 

@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentUpdateRequest {
+    @NotNull(message = "Please do not leave the id field empty !!!")
     @Positive(message = "Appointment id must be positive.")
     private Long id;
+
     @NotNull(message = "Please do not leave the appointmentDate field empty !!!")
     private LocalDateTime appointmentDateTime;
 
