@@ -56,6 +56,7 @@ public class AnimalController {
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<AnimalResponse> update(@Valid @RequestBody AnimalUpdateRequest animalUpdateRequest) {
+        this.animalService.get(animalUpdateRequest.getId());
         Animal updateAnimal = this.modelMapper.forRequest().map(animalUpdateRequest, Animal.class);
         updateAnimal.setCustomer(this.customerService.get(animalUpdateRequest.getCustomerId()));
         this.animalService.update(updateAnimal);

@@ -13,7 +13,6 @@ public interface IAppointmentService {
 
     ResultData<AppointmentResponse> save(AppointmentSaveRequest appointmentSaveRequest);
 
-
     Appointment update(Appointment appointment);
 
     boolean delete(Long id);

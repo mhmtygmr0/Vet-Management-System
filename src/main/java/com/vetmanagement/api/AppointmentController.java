@@ -52,6 +52,7 @@ public class AppointmentController {
 
     @PutMapping()
     public ResultData<AppointmentResponse> update(@Valid @RequestBody AppointmentUpdateRequest appointmentUpdateRequest) {
+        this.appointmentService.get(appointmentUpdateRequest.getId());
         Appointment updateAppointment = this.modelMapper.forRequest().map(appointmentUpdateRequest, Appointment.class);
         this.appointmentService.update(updateAppointment);
         return ResultHelper.success(this.modelMapper.forResponse().map(updateAppointment, AppointmentResponse.class));

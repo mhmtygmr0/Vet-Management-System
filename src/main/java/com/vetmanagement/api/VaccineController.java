@@ -10,7 +10,6 @@ import com.vetmanagement.dto.request.vaccine.VaccineSaveRequest;
 import com.vetmanagement.dto.request.vaccine.VaccineUpdateRequest;
 import com.vetmanagement.dto.response.CursorResponse;
 import com.vetmanagement.dto.response.VaccineResponse;
-import com.vetmanagement.entities.Animal;
 import com.vetmanagement.entities.Vaccine;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -57,6 +56,7 @@ public class VaccineController {
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<VaccineResponse> update(@Valid @RequestBody VaccineUpdateRequest vaccineUpdateRequest) {
+        this.vaccineService.get(vaccineUpdateRequest.getId());
         Vaccine updateVaccine = this.modelMapper.forRequest().map(vaccineUpdateRequest, Vaccine.class);
         updateVaccine.setAnimal(this.animalService.get(vaccineUpdateRequest.getAnimalId()));
         this.vaccineService.update(updateVaccine);

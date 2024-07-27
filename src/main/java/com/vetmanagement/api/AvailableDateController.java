@@ -1,7 +1,6 @@
 package com.vetmanagement.api;
 
 import com.vetmanagement.business.abstracts.IAvailableDateService;
-import com.vetmanagement.business.abstracts.IDoctorService;
 import com.vetmanagement.core.config.modelMapper.IModelMapperService;
 import com.vetmanagement.core.result.Result;
 import com.vetmanagement.core.result.ResultData;
@@ -21,12 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class AvailableDateController {
     private final IAvailableDateService availableDateService;
     private final IModelMapperService modelMapper;
-    private final IDoctorService doctorService;
 
-    public AvailableDateController(IAvailableDateService availableDateService, IModelMapperService modelMapper, IDoctorService doctorService) {
+    public AvailableDateController(IAvailableDateService availableDateService, IModelMapperService modelMapper) {
         this.availableDateService = availableDateService;
         this.modelMapper = modelMapper;
-        this.doctorService = doctorService;
     }
 
     @GetMapping("/{id}")
@@ -55,6 +52,7 @@ public class AvailableDateController {
 
     @PutMapping()
     public ResultData<AvailableDateResponse> update(@Valid @RequestBody AvailableDateUpdateRequest availableDateUpdateRequest) {
+        this.availableDateService.get(availableDateUpdateRequest.getId());
         AvailableDate updateAvailableDate = this.modelMapper.forRequest().map(availableDateUpdateRequest, AvailableDate.class);
         this.availableDateService.update(updateAvailableDate);
         return ResultHelper.success(this.modelMapper.forResponse().map(updateAvailableDate, AvailableDateResponse.class));

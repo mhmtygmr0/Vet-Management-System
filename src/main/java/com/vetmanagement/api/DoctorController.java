@@ -55,6 +55,7 @@ public class DoctorController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public ResultData<DoctorResponse> update(@Valid @RequestBody DoctorUpdateRequest doctorUpdateRequest) {
+        this.doctorService.get(doctorUpdateRequest.getId());
         Doctor updateDoctor = this.modelMapper.forRequest().map(doctorUpdateRequest, Doctor.class);
         this.doctorService.save(updateDoctor);
         return ResultHelper.success(this.modelMapper.forResponse().map(updateDoctor, DoctorResponse.class));
