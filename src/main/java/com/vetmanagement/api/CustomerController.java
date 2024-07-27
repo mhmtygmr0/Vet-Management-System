@@ -55,6 +55,7 @@ public class CustomerController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CustomerResponse> update(@Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
+        this.customerService.get(customerUpdateRequest.getId());
         Customer updateCustomer = this.modelMapper.forRequest().map(customerUpdateRequest, Customer.class);
         this.customerService.save(updateCustomer);
         return ResultHelper.success(this.modelMapper.forResponse().map(updateCustomer, CustomerResponse.class));
