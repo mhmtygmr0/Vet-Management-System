@@ -1,6 +1,5 @@
 package com.vetmanagement.core.config;
 
-
 import com.vetmanagement.core.exception.NotFoundException;
 import com.vetmanagement.core.result.Result;
 import com.vetmanagement.core.result.ResultData;
@@ -32,5 +31,10 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(ResultHelper.validateError(validationErrorList), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Result> handleIllegalArgumentException(IllegalArgumentException e) {
+        return new ResponseEntity<>(ResultHelper.error(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
