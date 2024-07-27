@@ -2,7 +2,6 @@ package com.vetmanagement.dto.converter;
 
 import com.vetmanagement.dao.DoctorRepo;
 import com.vetmanagement.dto.request.availableDate.AvailableDateSaveRequest;
-import com.vetmanagement.dto.request.availableDate.AvailableDateUpdateRequest;
 import com.vetmanagement.dto.response.AvailableDateResponse;
 import com.vetmanagement.entities.AvailableDate;
 import com.vetmanagement.entities.Doctor;
@@ -25,19 +24,6 @@ public class AvailableDateConverter {
         AvailableDate availableDate = new AvailableDate();
         availableDate.setAvailableDate(availableDateSaveRequest.getAvailableDate());
         Doctor doctor = doctorRepo.findById(availableDateSaveRequest.getDoctorId()).get();
-        availableDate.setDoctor(doctor);
-        return availableDate;
-    }
-
-
-    public AvailableDate convertToUpdateAvailableDate(AvailableDateUpdateRequest availableDateUpdateRequest) {
-        if (availableDateUpdateRequest == null) {
-            return null;
-        }
-        AvailableDate availableDate = new AvailableDate();
-        availableDate.setId(availableDateUpdateRequest.getId());
-        availableDate.setAvailableDate(availableDateUpdateRequest.getAvailableDate());
-        Doctor doctor = doctorRepo.findById(availableDateUpdateRequest.getDoctorId()).get();
         availableDate.setDoctor(doctor);
         return availableDate;
     }

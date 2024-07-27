@@ -2,7 +2,6 @@ package com.vetmanagement.dto.converter;
 
 import com.vetmanagement.dao.AnimalRepo;
 import com.vetmanagement.dto.request.vaccine.VaccineSaveRequest;
-import com.vetmanagement.dto.request.vaccine.VaccineUpdateRequest;
 import com.vetmanagement.dto.response.VaccineResponse;
 import com.vetmanagement.entities.Animal;
 import com.vetmanagement.entities.Vaccine;
