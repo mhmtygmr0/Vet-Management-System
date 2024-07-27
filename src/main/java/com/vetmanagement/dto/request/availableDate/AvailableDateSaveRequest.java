@@ -15,6 +15,7 @@ public class AvailableDateSaveRequest {
     @NotNull(message = "Please do not leave the availableDate field empty !!!")
     private LocalDate availableDate;
 
+    @NotNull(message = "Please do not leave the doctorID field empty !!!")
     @Positive(message = "Doctor id must be positive.")
     private Long doctorId;
 }
