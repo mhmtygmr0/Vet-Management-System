@@ -53,5 +53,4 @@ The system uses a relational database with the following tables:
 
 ## UML Diagram
 A UML diagram illustrating the system architecture and relationships between entities is included below.
-
-![uml.png](uml.png)
+![uml (1)](https://github.com/user-attachments/assets/787e8d26-3771-42c9-9037-e599245cad75)
