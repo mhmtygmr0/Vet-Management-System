@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -49,5 +50,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Result> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         String errorMessage = "A data integrity violation occurred: " + e.getMostSpecificCause().getMessage();
         return new ResponseEntity<>(ResultHelper.error(errorMessage), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Result> handleMissingServletRequestParameter(MissingServletRequestParameterException e) {
+        String errorMessage = "Required parameter '" + e.getParameterName() + "' missing.";
+        return new ResponseEntity<>(ResultHelper.error(errorMessage), HttpStatus.BAD_REQUEST);
     }
 }

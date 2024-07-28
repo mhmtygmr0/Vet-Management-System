@@ -12,8 +12,11 @@ import com.vetmanagement.dto.response.CursorResponse;
 import com.vetmanagement.entities.Appointment;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/v1/appointments")
@@ -63,5 +66,33 @@ public class AppointmentController {
     public Result delete(@PathVariable("id") Long id) {
         this.appointmentService.delete(id);
         return ResultHelper.ok();
+    }
+
+    @GetMapping("/filter/doctor")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultData<CursorResponse<AppointmentResponse>> getByDoctorAndAppointmentDateTime(
+            @RequestParam Long doctorId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDateTime,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
+    ) {
+        Page<Appointment> appointmentPage = appointmentService.getByDoctorAndAppointmentDateTime(doctorId, startDateTime, endDateTime, page, pageSize);
+        Page<AppointmentResponse> appointmentResponsePage = appointmentPage.map(appointment -> this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
+        return ResultHelper.cursor(appointmentResponsePage);
+    }
+
+    @GetMapping("/filter/animal")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultData<CursorResponse<AppointmentResponse>> getByAnimalAndAppointmentDateTime(
+            @RequestParam Long animalId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDateTime,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
+    ) {
+        Page<Appointment> appointmentPage = appointmentService.getByAnimalAndAppointmentDateTime(animalId, startDateTime, endDateTime, page, pageSize);
+        Page<AppointmentResponse> appointmentResponsePage = appointmentPage.map(appointment -> this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
+        return ResultHelper.cursor(appointmentResponsePage);
     }
 }

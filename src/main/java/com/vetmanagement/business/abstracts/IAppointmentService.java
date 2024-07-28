@@ -6,6 +6,8 @@ import com.vetmanagement.dto.response.AppointmentResponse;
 import com.vetmanagement.entities.Appointment;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDateTime;
+
 public interface IAppointmentService {
     Appointment get(Long id);
 
@@ -16,4 +18,8 @@ public interface IAppointmentService {
     Appointment update(Appointment appointment);
 
     boolean delete(Long id);
+
+    Page<Appointment> getByDoctorAndAppointmentDateTime(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime, int page, int pageSize);
+
+    Page<Appointment> getByAnimalAndAppointmentDateTime(Long animalId, LocalDateTime startDateTime, LocalDateTime endDateTime, int page, int pageSize);
 }

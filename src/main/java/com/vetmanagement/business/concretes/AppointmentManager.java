@@ -83,4 +83,16 @@ public class AppointmentManager implements IAppointmentService {
         this.appointmentRepo.delete(appointment);
         return true;
     }
+
+    @Override
+    public Page<Appointment> getByDoctorAndAppointmentDateTime(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return appointmentRepo.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime, pageable);
+    }
+
+    @Override
+    public Page<Appointment> getByAnimalAndAppointmentDateTime(Long animalId, LocalDateTime startDateTime, LocalDateTime endDateTime, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return appointmentRepo.findByAnimalIdAndAppointmentDateTimeBetween(animalId, startDateTime, endDateTime, pageable);
+    }
 }
