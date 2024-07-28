@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,6 +45,10 @@ public class VaccineManager implements IVaccineService {
     @Override
     public ResultData<VaccineResponse> save(VaccineSaveRequest vaccineSaveRequest) {
         this.animalManager.get(vaccineSaveRequest.getAnimalId());
+
+        if (vaccineSaveRequest.getProtectionFinishDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("The protection finish date is in the past. Cannot register vaccine.");
+        }
 
         this.validateExistingVaccines(vaccineSaveRequest);
 
@@ -88,5 +93,9 @@ public class VaccineManager implements IVaccineService {
     public Page<Vaccine> getVaccinesByAnimalId(Long animalId, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return this.vaccineRepo.findByAnimalId(animalId, pageable);
+    }
+
+    public List<Vaccine> findVaccinesByProtectionFinishDateBetween(LocalDate startDate, LocalDate endDate) {
+        return vaccineRepo.findByProtectionFinishDateBetween(startDate, endDate);
     }
 }

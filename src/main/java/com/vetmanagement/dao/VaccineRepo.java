@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -16,4 +17,6 @@ public interface VaccineRepo extends JpaRepository<Vaccine, Long> {
 
     @Query("SELECT v FROM Vaccine v WHERE v.name = :name AND v.code = :code AND v.animal.id = :animalId")
     List<Vaccine> findByNameAndCodeAndAnimalId(@Param("name") String name, @Param("code") String code, @Param("animalId") Long animalId);
+
+    List<Vaccine> findByProtectionFinishDateBetween(LocalDate startDate, LocalDate endDate);
 }

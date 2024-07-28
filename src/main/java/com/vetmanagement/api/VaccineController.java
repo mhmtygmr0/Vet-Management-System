@@ -13,8 +13,12 @@ import com.vetmanagement.dto.response.VaccineResponse;
 import com.vetmanagement.entities.Vaccine;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/vaccines")
@@ -80,6 +84,13 @@ public class VaccineController {
         Page<Vaccine> vaccinePage = this.vaccineService.getVaccinesByAnimalId(animalId, page, pageSize);
         Page<VaccineResponse> vaccineResponsePage = vaccinePage.map(vaccine -> this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
         return ResultHelper.cursor(vaccineResponsePage);
+    }
+
+    @GetMapping("/filter")
+    public List<Vaccine> getVaccinesByProtectionFinishDateBetween(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return vaccineService.findVaccinesByProtectionFinishDateBetween(startDate, endDate);
     }
 
 }

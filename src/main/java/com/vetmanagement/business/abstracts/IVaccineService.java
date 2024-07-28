@@ -6,6 +6,9 @@ import com.vetmanagement.dto.response.VaccineResponse;
 import com.vetmanagement.entities.Vaccine;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public interface IVaccineService {
     Vaccine get(Long id);
 
@@ -18,4 +21,6 @@ public interface IVaccineService {
     boolean delete(Long id);
 
     Page<Vaccine> getVaccinesByAnimalId(Long animalId, int page, int pageSize);
+
+    List<Vaccine> findVaccinesByProtectionFinishDateBetween(LocalDate startDate, LocalDate endDate);
 }
