@@ -26,6 +26,12 @@ public class DoctorController {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * Get doctor by ID
+     *
+     * @param id Doctor ID
+     * @return DoctorResponse containing doctor details
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<DoctorResponse> get(@PathVariable("id") Long id) {
@@ -33,6 +39,13 @@ public class DoctorController {
         return ResultHelper.success(this.modelMapper.forResponse().map(doctor, DoctorResponse.class));
     }
 
+    /**
+     * Get a paginated list of doctors
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of DoctorResponse
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<DoctorResponse>> cursor(
@@ -44,6 +57,12 @@ public class DoctorController {
         return ResultHelper.cursor(doctorResponsePage);
     }
 
+    /**
+     * Save a new doctor
+     *
+     * @param doctorSaveRequest Request containing details of the doctor to save
+     * @return DoctorResponse containing saved doctor details
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<DoctorResponse> save(@Valid @RequestBody DoctorSaveRequest doctorSaveRequest) {
@@ -52,6 +71,12 @@ public class DoctorController {
         return ResultHelper.created(this.modelMapper.forResponse().map(saveDoctor, DoctorResponse.class));
     }
 
+    /**
+     * Update an existing doctor
+     *
+     * @param doctorUpdateRequest Request containing updated details of the doctor
+     * @return DoctorResponse containing updated doctor details
+     */
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public ResultData<DoctorResponse> update(@Valid @RequestBody DoctorUpdateRequest doctorUpdateRequest) {
@@ -61,6 +86,12 @@ public class DoctorController {
         return ResultHelper.success(this.modelMapper.forResponse().map(updateDoctor, DoctorResponse.class));
     }
 
+    /**
+     * Delete a doctor by ID
+     *
+     * @param id Doctor ID
+     * @return Result indicating the status of the operation
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable("id") Long id) {

@@ -29,6 +29,12 @@ public class AppointmentController {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * Get appointment by ID
+     *
+     * @param id Appointment ID
+     * @return AppointmentResponse containing appointment details
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<AppointmentResponse> get(@PathVariable("id") Long id) {
@@ -36,6 +42,13 @@ public class AppointmentController {
         return ResultHelper.success(this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
     }
 
+    /**
+     * Get a paginated list of appointments
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of AppointmentResponse
+     */
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AppointmentResponse>> cursor(
@@ -47,13 +60,26 @@ public class AppointmentController {
         return ResultHelper.cursor(appointmentResponsePage);
     }
 
+    /**
+     * Save a new appointment
+     *
+     * @param appointmentSaveRequest Request containing details of the appointment to save
+     * @return AppointmentResponse containing saved appointment details
+     */
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<AppointmentResponse> save(@Valid @RequestBody AppointmentSaveRequest appointmentSaveRequest) {
         return this.appointmentService.save(appointmentSaveRequest);
     }
 
+    /**
+     * Update an existing appointment
+     *
+     * @param appointmentUpdateRequest Request containing updated details of the appointment
+     * @return AppointmentResponse containing updated appointment details
+     */
     @PutMapping()
+    @ResponseStatus(HttpStatus.OK)
     public ResultData<AppointmentResponse> update(@Valid @RequestBody AppointmentUpdateRequest appointmentUpdateRequest) {
         this.appointmentService.get(appointmentUpdateRequest.getId());
         Appointment updateAppointment = this.modelMapper.forRequest().map(appointmentUpdateRequest, Appointment.class);
@@ -61,6 +87,12 @@ public class AppointmentController {
         return ResultHelper.success(this.modelMapper.forResponse().map(updateAppointment, AppointmentResponse.class));
     }
 
+    /**
+     * Delete an appointment by ID
+     *
+     * @param id Appointment ID
+     * @return Result indicating the status of the operation
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable("id") Long id) {
@@ -68,6 +100,16 @@ public class AppointmentController {
         return ResultHelper.ok();
     }
 
+    /**
+     * Get appointments by doctor ID and date/time range
+     *
+     * @param doctorId      Doctor ID
+     * @param startDateTime Start of the date/time range
+     * @param endDateTime   End of the date/time range
+     * @param page          Page number
+     * @param pageSize      Number of items per page
+     * @return Paginated list of AppointmentResponse filtered by doctor ID and date/time range
+     */
     @GetMapping("/filter/doctor")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AppointmentResponse>> getByDoctorAndAppointmentDateTime(
@@ -82,6 +124,16 @@ public class AppointmentController {
         return ResultHelper.cursor(appointmentResponsePage);
     }
 
+    /**
+     * Get appointments by animal ID and date/time range
+     *
+     * @param animalId      Animal ID
+     * @param startDateTime Start of the date/time range
+     * @param endDateTime   End of the date/time range
+     * @param page          Page number
+     * @param pageSize      Number of items per page
+     * @return Paginated list of AppointmentResponse filtered by animal ID and date/time range
+     */
     @GetMapping("/filter/animal")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AppointmentResponse>> getByAnimalAndAppointmentDateTime(

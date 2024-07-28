@@ -31,17 +31,36 @@ public class VaccineManager implements IVaccineService {
         this.vaccineConverter = vaccineConverter;
     }
 
+    /**
+     * Retrieve a vaccine by its ID.
+     *
+     * @param id Vaccine ID
+     * @return Vaccine entity
+     */
     @Override
     public Vaccine get(Long id) {
         return this.vaccineRepo.findById(id).orElseThrow(() -> new NotFoundException(Msg.NOT_FOUND));
     }
 
+    /**
+     * Get a paginated list of vaccines.
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Page of Vaccine entities
+     */
     @Override
     public Page<Vaccine> cursor(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return this.vaccineRepo.findAll(pageable);
     }
 
+    /**
+     * Save a new vaccine.
+     *
+     * @param vaccineSaveRequest Request object containing vaccine details
+     * @return Result data containing saved VaccineResponse
+     */
     @Override
     public ResultData<VaccineResponse> save(VaccineSaveRequest vaccineSaveRequest) {
         this.animalManager.get(vaccineSaveRequest.getAnimalId());
@@ -58,6 +77,11 @@ public class VaccineManager implements IVaccineService {
         return ResultHelper.created(this.vaccineConverter.toVaccineResponse(saveVaccine));
     }
 
+    /**
+     * Validate existing vaccines to avoid duplicate or overlapping vaccine entries.
+     *
+     * @param vaccineSaveRequest Request object containing vaccine details
+     */
     private void validateExistingVaccines(VaccineSaveRequest vaccineSaveRequest) {
         List<Vaccine> existingVaccines = vaccineRepo.findByNameAndCodeAndAnimalId(
                 vaccineSaveRequest.getName(),
@@ -77,11 +101,23 @@ public class VaccineManager implements IVaccineService {
         }
     }
 
+    /**
+     * Update an existing vaccine.
+     *
+     * @param vaccine Vaccine entity to update
+     * @return Updated Vaccine entity
+     */
     @Override
     public Vaccine update(Vaccine vaccine) {
         return this.vaccineRepo.save(vaccine);
     }
 
+    /**
+     * Delete a vaccine by its ID.
+     *
+     * @param id Vaccine ID
+     * @return true if the deletion is successful
+     */
     @Override
     public boolean delete(Long id) {
         Vaccine vaccine = this.get(id);
@@ -89,12 +125,27 @@ public class VaccineManager implements IVaccineService {
         return true;
     }
 
+    /**
+     * Get a paginated list of vaccines by animal ID.
+     *
+     * @param animalId Animal ID
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Page of Vaccine entities
+     */
     @Override
     public Page<Vaccine> getVaccinesByAnimalId(Long animalId, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return this.vaccineRepo.findByAnimalId(animalId, pageable);
     }
 
+    /**
+     * Find vaccines by protection finish date range.
+     *
+     * @param startDate Start date of the range
+     * @param endDate   End date of the range
+     * @return List of Vaccine entities within the specified date range
+     */
     public List<Vaccine> findVaccinesByProtectionFinishDateBetween(LocalDate startDate, LocalDate endDate) {
         return vaccineRepo.findByProtectionFinishDateBetween(startDate, endDate);
     }

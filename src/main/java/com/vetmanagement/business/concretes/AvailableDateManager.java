@@ -31,17 +31,36 @@ public class AvailableDateManager implements IAvailableDateService {
         this.doctorManager = doctorManager;
     }
 
+    /**
+     * Retrieve an available date by its ID.
+     *
+     * @param id Available Date ID
+     * @return AvailableDate entity
+     */
     @Override
     public AvailableDate get(Long id) {
         return this.availableDateRepo.findById(id).orElseThrow(() -> new NotFoundException(Msg.NOT_FOUND));
     }
 
+    /**
+     * Get a paginated list of available dates.
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Page of AvailableDate entities
+     */
     @Override
     public Page<AvailableDate> cursor(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return this.availableDateRepo.findAll(pageable);
     }
 
+    /**
+     * Save a new available date.
+     *
+     * @param availableDateSaveRequest Request containing available date details
+     * @return ResultData containing the saved AvailableDateResponse
+     */
     @Override
     public ResultData<AvailableDateResponse> save(AvailableDateSaveRequest availableDateSaveRequest) {
         this.checkIfAvailableDateExists(availableDateSaveRequest);
@@ -52,8 +71,12 @@ public class AvailableDateManager implements IAvailableDateService {
         return ResultHelper.created(this.converterAvailableDate.toAvailableDateResponse(saveAvailableDate));
     }
 
+    /**
+     * Check if an available date with the same doctor ID and date already exists.
+     *
+     * @param availableDateSaveRequest Request containing available date details
+     */
     private void checkIfAvailableDateExists(AvailableDateSaveRequest availableDateSaveRequest) {
-        // Check if an available date with the same doctor ID and date already exists
         Optional<AvailableDate> existingAvailableDate = availableDateRepo.findByDoctorIdAndAvailableDate(
                 availableDateSaveRequest.getDoctorId(), availableDateSaveRequest.getAvailableDate());
         if (existingAvailableDate.isPresent()) {
@@ -62,11 +85,23 @@ public class AvailableDateManager implements IAvailableDateService {
         }
     }
 
+    /**
+     * Update an existing available date.
+     *
+     * @param availableDate AvailableDate entity to update
+     * @return Updated AvailableDate entity
+     */
     @Override
     public AvailableDate update(AvailableDate availableDate) {
         return this.availableDateRepo.save(availableDate);
     }
 
+    /**
+     * Delete an available date by its ID.
+     *
+     * @param id Available Date ID
+     * @return true if the deletion is successful
+     */
     @Override
     public boolean delete(Long id) {
         AvailableDate availableDate = this.get(id);
@@ -74,6 +109,13 @@ public class AvailableDateManager implements IAvailableDateService {
         return true;
     }
 
+    /**
+     * Check if a doctor is available on a specific date.
+     *
+     * @param doctorId      Doctor ID
+     * @param availableDate Available date
+     * @return true if the doctor is available on the specified date
+     */
     public boolean availableDoctor(Long doctorId, LocalDate availableDate) {
         boolean doctorAvailable = this.availableDateRepo
                 .findByDoctorIdAndAvailableDate(doctorId, availableDate).isPresent();

@@ -29,6 +29,11 @@ public class AnimalController {
         this.customerService = customerService;
     }
 
+    /**
+     * Get animal by ID
+     * @param id Animal ID
+     * @return AnimalResponse containing animal details
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<AnimalResponse> get(@PathVariable("id") Long id) {
@@ -36,6 +41,12 @@ public class AnimalController {
         return ResultHelper.success(this.modelMapper.forResponse().map(animal, AnimalResponse.class));
     }
 
+    /**
+     * Get a paginated list of animals
+     * @param page Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of AnimalResponse
+     */
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AnimalResponse>> cursor(
@@ -47,12 +58,22 @@ public class AnimalController {
         return ResultHelper.cursor(animalResponsePage);
     }
 
+    /**
+     * Save a new animal
+     * @param animalSaveRequest Request containing details of the animal to save
+     * @return AnimalResponse containing saved animal details
+     */
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<AnimalResponse> save(@Valid @RequestBody AnimalSaveRequest animalSaveRequest) {
         return this.animalService.save(animalSaveRequest);
     }
 
+    /**
+     * Update an existing animal
+     * @param animalUpdateRequest Request containing updated details of the animal
+     * @return AnimalResponse containing updated animal details
+     */
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<AnimalResponse> update(@Valid @RequestBody AnimalUpdateRequest animalUpdateRequest) {
@@ -63,6 +84,11 @@ public class AnimalController {
         return ResultHelper.success(this.modelMapper.forResponse().map(updateAnimal, AnimalResponse.class));
     }
 
+    /**
+     * Delete an animal by ID
+     * @param id Animal ID
+     * @return Result indicating the status of the operation
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable("id") Long id) {
@@ -70,6 +96,13 @@ public class AnimalController {
         return ResultHelper.ok();
     }
 
+    /**
+     * Get animals by customer ID
+     * @param customerId Customer ID
+     * @param page Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of AnimalResponse filtered by customer ID
+     */
     @GetMapping("/customer/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AnimalResponse>> getAnimalsByCustomerId(
@@ -82,6 +115,13 @@ public class AnimalController {
         return ResultHelper.cursor(animalResponsePage);
     }
 
+    /**
+     * Get animals by animal name
+     * @param name Animal name
+     * @param page Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of AnimalResponse filtered by animal name
+     */
     @GetMapping("/name/{name}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AnimalResponse>> getAnimalsByAnimalName(
@@ -93,5 +133,4 @@ public class AnimalController {
         Page<AnimalResponse> animalResponsePage = animalPage.map(animal -> modelMapper.forResponse().map(animal, AnimalResponse.class));
         return ResultHelper.cursor(animalResponsePage);
     }
-
 }

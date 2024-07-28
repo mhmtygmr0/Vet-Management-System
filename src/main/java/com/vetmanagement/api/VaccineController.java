@@ -33,6 +33,12 @@ public class VaccineController {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * Get vaccine by ID
+     *
+     * @param id Vaccine ID
+     * @return VaccineResponse containing vaccine details
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<VaccineResponse> get(@PathVariable("id") Long id) {
@@ -40,6 +46,13 @@ public class VaccineController {
         return ResultHelper.success(this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
     }
 
+    /**
+     * Get a paginated list of vaccines
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of VaccineResponse
+     */
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<VaccineResponse>> cursor(
@@ -51,12 +64,24 @@ public class VaccineController {
         return ResultHelper.cursor(vaccineResponsePage);
     }
 
+    /**
+     * Save a new vaccine
+     *
+     * @param vaccineSaveRequest Request containing details of the vaccine to save
+     * @return VaccineResponse containing saved vaccine details
+     */
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<VaccineResponse> save(@Valid @RequestBody VaccineSaveRequest vaccineSaveRequest) {
         return this.vaccineService.save(vaccineSaveRequest);
     }
 
+    /**
+     * Update an existing vaccine
+     *
+     * @param vaccineUpdateRequest Request containing updated details of the vaccine
+     * @return VaccineResponse containing updated vaccine details
+     */
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<VaccineResponse> update(@Valid @RequestBody VaccineUpdateRequest vaccineUpdateRequest) {
@@ -67,6 +92,12 @@ public class VaccineController {
         return ResultHelper.success(this.modelMapper.forResponse().map(updateVaccine, VaccineResponse.class));
     }
 
+    /**
+     * Delete a vaccine by ID
+     *
+     * @param id Vaccine ID
+     * @return Result indicating the status of the operation
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable("id") Long id) {
@@ -74,6 +105,14 @@ public class VaccineController {
         return ResultHelper.ok();
     }
 
+    /**
+     * Get a paginated list of vaccines by animal ID
+     *
+     * @param animalId Animal ID
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of VaccineResponse
+     */
     @GetMapping("/animal/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<VaccineResponse>> getVaccinesByAnimalId(
@@ -86,6 +125,13 @@ public class VaccineController {
         return ResultHelper.cursor(vaccineResponsePage);
     }
 
+    /**
+     * Get a list of vaccines by protection finish date range
+     *
+     * @param startDate Start date of the range
+     * @param endDate   End date of the range
+     * @return List of vaccines within the specified date range
+     */
     @GetMapping("/filter")
     public List<Vaccine> getVaccinesByProtectionFinishDateBetween(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,

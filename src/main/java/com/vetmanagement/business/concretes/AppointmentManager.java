@@ -35,17 +35,36 @@ public class AppointmentManager implements IAppointmentService {
         this.availableDateManager = availableDateManager;
     }
 
+    /**
+     * Retrieve an appointment by its ID.
+     *
+     * @param id Appointment ID
+     * @return Appointment entity
+     */
     @Override
     public Appointment get(Long id) {
         return this.appointmentRepo.findById(id).orElseThrow(() -> new NotFoundException(Msg.NOT_FOUND));
     }
 
+    /**
+     * Get a paginated list of appointments.
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Page of Appointment entities
+     */
     @Override
     public Page<Appointment> cursor(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return this.appointmentRepo.findAll(pageable);
     }
 
+    /**
+     * Save a new appointment.
+     *
+     * @param appointmentSaveRequest Request containing appointment details
+     * @return ResultData containing the saved AppointmentResponse
+     */
     @Override
     public ResultData<AppointmentResponse> save(AppointmentSaveRequest appointmentSaveRequest) {
         this.animalManager.get(appointmentSaveRequest.getAnimalId());
@@ -60,6 +79,12 @@ public class AppointmentManager implements IAppointmentService {
         return ResultHelper.created(this.converterAppointment.toAppointmentResponse(saveAppointment));
     }
 
+    /**
+     * Check if an appointment already exists within the selected time range.
+     *
+     * @param doctorId            Doctor ID
+     * @param appointmentDateTime Appointment date and time
+     */
     void appointmentExists(Long doctorId, LocalDateTime appointmentDateTime) {
         LocalDateTime startDateTime = appointmentDateTime.withMinute(0).withSecond(0).withNano(0);
         LocalDateTime endDateTime = startDateTime.plusHours(1); // Appointment duration assumed to be 1 hour
@@ -72,11 +97,23 @@ public class AppointmentManager implements IAppointmentService {
         }
     }
 
+    /**
+     * Update an existing appointment.
+     *
+     * @param appointment Appointment entity to update
+     * @return Updated Appointment entity
+     */
     @Override
     public Appointment update(Appointment appointment) {
         return this.appointmentRepo.save(appointment);
     }
 
+    /**
+     * Delete an appointment by its ID.
+     *
+     * @param id Appointment ID
+     * @return true if the deletion is successful
+     */
     @Override
     public boolean delete(Long id) {
         Appointment appointment = this.get(id);
@@ -84,12 +121,32 @@ public class AppointmentManager implements IAppointmentService {
         return true;
     }
 
+    /**
+     * Get a paginated list of appointments by doctor ID and appointment date-time range.
+     *
+     * @param doctorId      Doctor ID
+     * @param startDateTime Start date and time
+     * @param endDateTime   End date and time
+     * @param page          Page number
+     * @param pageSize      Number of items per page
+     * @return Page of Appointment entities
+     */
     @Override
     public Page<Appointment> getByDoctorAndAppointmentDateTime(Long doctorId, LocalDateTime startDateTime, LocalDateTime endDateTime, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return appointmentRepo.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime, pageable);
     }
 
+    /**
+     * Get a paginated list of appointments by animal ID and appointment date-time range.
+     *
+     * @param animalId      Animal ID
+     * @param startDateTime Start date and time
+     * @param endDateTime   End date and time
+     * @param page          Page number
+     * @param pageSize      Number of items per page
+     * @return Page of Appointment entities
+     */
     @Override
     public Page<Appointment> getByAnimalAndAppointmentDateTime(Long animalId, LocalDateTime startDateTime, LocalDateTime endDateTime, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);

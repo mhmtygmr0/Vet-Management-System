@@ -26,6 +26,12 @@ public class AvailableDateController {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * Get available date by ID
+     *
+     * @param id Available date ID
+     * @return AvailableDateResponse containing available date details
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultData<AvailableDateResponse> get(@PathVariable("id") Long id) {
@@ -33,6 +39,13 @@ public class AvailableDateController {
         return ResultHelper.success(this.modelMapper.forResponse().map(availableDate, AvailableDateResponse.class));
     }
 
+    /**
+     * Get a paginated list of available dates
+     *
+     * @param page     Page number
+     * @param pageSize Number of items per page
+     * @return Paginated list of AvailableDateResponse
+     */
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultData<CursorResponse<AvailableDateResponse>> cursor(
@@ -44,12 +57,24 @@ public class AvailableDateController {
         return ResultHelper.cursor(availableDateResponsePage);
     }
 
+    /**
+     * Save a new available date
+     *
+     * @param availableDateSaveRequest Request containing details of the available date to save
+     * @return AvailableDateResponse containing saved available date details
+     */
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<AvailableDateResponse> save(@Valid @RequestBody AvailableDateSaveRequest availableDateSaveRequest) {
         return this.availableDateService.save(availableDateSaveRequest);
     }
 
+    /**
+     * Update an existing available date
+     *
+     * @param availableDateUpdateRequest Request containing updated details of the available date
+     * @return AvailableDateResponse containing updated available date details
+     */
     @PutMapping()
     public ResultData<AvailableDateResponse> update(@Valid @RequestBody AvailableDateUpdateRequest availableDateUpdateRequest) {
         this.availableDateService.get(availableDateUpdateRequest.getId());
@@ -58,6 +83,12 @@ public class AvailableDateController {
         return ResultHelper.success(this.modelMapper.forResponse().map(updateAvailableDate, AvailableDateResponse.class));
     }
 
+    /**
+     * Delete an available date by ID
+     *
+     * @param id Available date ID
+     * @return Result indicating the status of the operation
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable("id") Long id) {
