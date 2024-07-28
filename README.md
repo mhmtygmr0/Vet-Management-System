@@ -34,7 +34,7 @@ Before you begin, ensure you have the following installed on your machine:
 
 ### Database Setup
 
-1. Create a database named `vetClinic` in PostgreSQL.
+1. Create a database named `vet_management_system` in PostgreSQL.
 2. Update the database configuration in `src/main/resources/application.properties` with your database details.
 3. Import the `vet_management_system.sql` file to create the necessary tables and initial data.
 4. Run the project.
