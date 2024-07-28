@@ -1,4 +1,4 @@
-# <p align="center">Veterinary Clinic Management Application</p>
+# <p align="center">Vet Management System</p>
 
 ## <p align="center">The application will be helper to management veterinary clinic services with recording datas about; animals, doctors, appointmens and much more you can learn more details about application by continue reading.</p>
 
