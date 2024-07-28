@@ -1,4 +1,4 @@
-# <p align="center">Veterinary Clinic Management Application</p>
+# <p align="center">Vet Management System</p>
 
 ## <p align="center">The application will be helper to management veterinary clinic services with recording datas about; animals, doctors, appointmens and much more you can learn more details about application by continue reading.</p>
 
@@ -34,7 +34,7 @@ Before you begin, ensure you have the following installed on your machine:
 
 ### Database Setup
 
-1. Create a database named `vetClinic` in PostgreSQL.
+1. Create a database named `vet_management_system` in PostgreSQL.
 2. Update the database configuration in `src/main/resources/application.properties` with your database details.
 3. Import the `vet_management_system.sql` file to create the necessary tables and initial data.
 4. Run the project.
@@ -53,5 +53,4 @@ The system uses a relational database with the following tables:
 
 ## UML Diagram
 A UML diagram illustrating the system architecture and relationships between entities is included below.
-
-![uml.png](uml.png)
+![uml (1)](https://github.com/user-attachments/assets/787e8d26-3771-42c9-9037-e599245cad75)
