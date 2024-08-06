@@ -8,11 +8,11 @@
 - User can create records about vaccines which are applied to animals and it prevent to apply the same vaccine to an animal via controlling expiring dates.
 
 ### The technologies which are using by the application:
-- Java 21
+- Java 22
 - Spring Boot
 - Spring Data JPA
-- PostgreSQL / MySQL
-- Swagger
+- PostgreSQL
+- Postman
 - IntelliJ IDEA
 
 ## Installation
